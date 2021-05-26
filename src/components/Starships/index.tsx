@@ -1,13 +1,13 @@
 import React, { FC, ReactElement } from 'react';
 
-import { Starship } from 'bus/starships/types';
-import { useStarshipsFetch } from 'bus/starships/hooks/useStarshipsFetch';
-
 import { Title } from 'components/Title';
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-import { starshipsReducer } from 'bus/starships/reducer';
 
+import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+
+import { Starship } from 'bus/starships/types';
+import { starshipsReducer } from 'bus/starships/reducer';
 import { watchStarships } from 'bus/starships/saga/watchers';
+import { useStarshipsFetch } from 'bus/starships/hooks/useStarshipsFetch';
 
 export const Starships: FC = () => {
   useInjectReducer({ key: 'starships', reducer: starshipsReducer });
