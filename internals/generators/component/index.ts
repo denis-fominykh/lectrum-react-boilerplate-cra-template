@@ -81,7 +81,7 @@ export const componentGenerator: PlopGeneratorConfig = {
       {
         type: 'add',
         path: `${componentPath}/index.tsx`,
-        templateFile: './component/App.tsx.hbs',
+        templateFile: './component/index.tsx.hbs',
         abortOnFail: true,
       },
     ];

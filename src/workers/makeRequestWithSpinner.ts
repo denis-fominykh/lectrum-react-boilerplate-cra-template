@@ -1,17 +1,42 @@
-import { ActionCreator, AnyAction } from 'redux';
 import { SagaIterator } from '@redux-saga/core';
 import { put, call } from 'redux-saga/effects';
+import {
+  ActionCreatorWithPayload,
+  ActionCreatorWithoutPayload,
+  ActionCreatorWithPreparedPayload,
+} from '@reduxjs/toolkit';
 
-import { FillActionType, ErrorActionType } from 'types';
+import { ErrorHttpAction } from 'bus/starships/types';
+import {
+  STARSHIPS_STOP_FETCHING,
+  STARSHIPS_START_FETCHING,
+  STARSHIPS_SET_FETCHING_ERROR,
+} from 'bus/starships/actions/types';
 
-type OptionsType<T> = {
-  fetcher: (url?: string) => Promise<T>;
+interface OptionsType<T> {
   fetcherParam?: string;
-  startFetching: ActionCreator<AnyAction>;
-  stopFetching: ActionCreator<AnyAction>;
-  fill: FillActionType<T>;
-  setErrorAction: ErrorActionType;
-};
+  fetcher: (url?: string) => Promise<T>;
+  fill: ActionCreatorWithPayload<T, string>;
+  stopFetching: ActionCreatorWithoutPayload<typeof STARSHIPS_STOP_FETCHING>;
+  startFetching: ActionCreatorWithoutPayload<typeof STARSHIPS_START_FETCHING>;
+  setErrorAction: ActionCreatorWithPreparedPayload<
+    Parameters<
+      (payload: ErrorHttpAction) => { payload: string; error: boolean }
+    >,
+    string,
+    typeof STARSHIPS_SET_FETCHING_ERROR,
+    ReturnType<
+      (payload: ErrorHttpAction) => { payload: string; error: boolean }
+    > extends { error: infer E }
+      ? E
+      : never,
+    ReturnType<
+      (payload: ErrorHttpAction) => { payload: string; error: boolean }
+    > extends { meta: infer M }
+      ? M
+      : never
+  >;
+}
 
 export function* makeRequestWithSpinner<T>(
   options: OptionsType<T>,

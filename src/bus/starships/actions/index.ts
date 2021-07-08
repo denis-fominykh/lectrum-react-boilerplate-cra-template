@@ -1,3 +1,5 @@
+import { createAction } from '@reduxjs/toolkit';
+
 import {
   STARSHIPS_FILL,
   STARSHIPS_FETCH_ASYNC,
@@ -6,43 +8,18 @@ import {
   STARSHIPS_SET_FETCHING_ERROR,
 } from 'bus/starships/actions/types';
 
-import {
-  Starships,
-  ErrorHttpAction,
-  StarshipsFillAction,
-  StarshipsActionsTypes,
-  StarshipsSetFetchingErrorAction,
-} from 'bus/starships/types';
+import { Starships, ErrorHttpAction } from 'bus/starships/types';
 
-/** ============================================
- *  SYNC
- *  ============================================ */
-
-export const startFetching = (): StarshipsActionsTypes => ({
-  type: STARSHIPS_START_FETCHING,
-});
-
-export const stopFetching = (): StarshipsActionsTypes => ({
-  type: STARSHIPS_STOP_FETCHING,
-});
-
-export const fill = (payload: Starships): StarshipsFillAction => ({
-  type: STARSHIPS_FILL,
-  payload,
-});
-
-export const setFetchingError = (
-  payload: ErrorHttpAction,
-): StarshipsSetFetchingErrorAction => ({
-  type: STARSHIPS_SET_FETCHING_ERROR,
-  error: true,
-  payload,
-});
-
-/** ============================================
- *  ASYNC
- *  ============================================ */
-
-export const fetchAsync = (): StarshipsActionsTypes => ({
-  type: STARSHIPS_FETCH_ASYNC,
-});
+export const starshipsActions = {
+  startFetching: createAction(STARSHIPS_START_FETCHING),
+  stopFetching: createAction(STARSHIPS_STOP_FETCHING),
+  fill: createAction<Starships>(STARSHIPS_FILL),
+  setFetchingError: createAction(
+    STARSHIPS_SET_FETCHING_ERROR,
+    (payload: ErrorHttpAction) => ({
+      error: true,
+      payload,
+    }),
+  ),
+  fetchAsync: createAction(STARSHIPS_FETCH_ASYNC),
+};

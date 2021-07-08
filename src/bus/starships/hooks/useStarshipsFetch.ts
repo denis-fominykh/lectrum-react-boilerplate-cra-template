@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { RootStateType } from 'types';
-import { fetchAsync } from 'bus/starships/actions';
+import { starshipsActions } from 'bus/starships/actions';
 import { StarshipsState } from 'bus/starships/types';
 
 export const useStarshipsFetch = (): StarshipsState => {
@@ -13,7 +13,7 @@ export const useStarshipsFetch = (): StarshipsState => {
   >(state => state.starships);
 
   useEffect(() => {
-    dispatch(fetchAsync());
+    dispatch(starshipsActions.fetchAsync());
   }, [dispatch]);
 
   return {

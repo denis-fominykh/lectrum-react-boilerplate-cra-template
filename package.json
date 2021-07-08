@@ -1,5 +1,5 @@
 {
-  "name": "react-redux-ts",
+  "name": "my-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -42,7 +42,6 @@
     "react-dom": "16.13.1",
     "react-helmet-async": "1.0.6",
     "react-i18next": "11.7.2",
-    "react-intl": "5.18.1",
     "react-redux": "7.2.1",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",

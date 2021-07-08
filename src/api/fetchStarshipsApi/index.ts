@@ -1,13 +1,12 @@
 import { API } from 'api/config';
+import { FetchDataType } from 'types';
 import { Starships } from 'bus/starships/types';
 
-export type FetchDataType<T> = () => Promise<T>;
-
-type APIStarshipsDataType = {
+interface APIStarshipsDataType {
   starships: {
     fetch: FetchDataType<Starships>;
   };
-};
+}
 
 export const fetchStarshipsApi: APIStarshipsDataType = {
   starships: {
